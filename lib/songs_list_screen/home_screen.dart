@@ -116,6 +116,7 @@ ListView songsListUI(OnLoadedSongsList state) {
           BlocProvider.of<SongsListBloc>(context)
               .add(GetSongDetailsEvent(state.songs[index].trackId));
         },
+        leading: Icon(Icons.music_note),
         title: Text(state.songs[index].trackName),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

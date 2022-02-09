@@ -24,39 +24,56 @@ class SongDetailsScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-          minimum: EdgeInsets.fromLTRB(12, 0, 12, 0),
+          minimum: EdgeInsets.fromLTRB(12, 0, 10, 0),
           left: true,
           right: true,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Name'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Name',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
                 Text(track.trackName),
                 SizedBox(
                   height: 20,
                 ),
-                Text('Artist'),
+                Text(
+                  'Artist',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
                 Text(track.artistName),
                 SizedBox(
                   height: 20,
                 ),
-                Text('Album Name'),
+                Text('Album Name',
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(track.albumName),
                 SizedBox(
                   height: 20,
                 ),
-                Text('Explicit'),
+                Text('Explicit',
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(track.explicit ? 'True' : 'False'),
                 SizedBox(
                   height: 20,
                 ),
-                Text('Rating'),
+                Text('Rating',
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(track.trackRating.toString()),
                 SizedBox(
                   height: 20,
                 ),
-                Text('Lyrics'),
+                Text('Lyrics',
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Text(lyricsData.lyrics)
               ],
             ),
