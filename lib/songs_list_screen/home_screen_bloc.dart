@@ -16,7 +16,7 @@ class SongsListBloc extends Bloc<SongsListEvent, SongsListState> {
       if (songs.status == 'SUCCESS') {
         yield OnLoadedSongsList(songs.songList);
       } else {
-        yield OnError('error4');
+        yield OnError("Error please try again");
       }
     }
     if (event is GetSongDetailsEvent) {
@@ -24,10 +24,12 @@ class SongsListBloc extends Bloc<SongsListEvent, SongsListState> {
       var lyrics = await apiClient.getTrackLyrics(event.trackId);
       if (trackDetail.status == 'SUCCESS' && lyrics.status == 'SUCCESS') {
         yield OnLoadedSongDetails(trackDetail, lyrics);
+      } else {
+        yield OnError("Error please try again");
       }
-      // if(trackDetail.status=='SUCCESS'){
-
-      // }
+    }
+    if (event is NoInternetEvent) {
+      yield NoInternetState();
     }
   }
 }

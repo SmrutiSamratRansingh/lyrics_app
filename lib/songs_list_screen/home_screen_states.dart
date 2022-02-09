@@ -6,6 +6,8 @@ class SongsListState extends BaseEventState {}
 
 class OnLoading extends SongsListState {}
 
+class NoInternetState extends SongsListState {}
+
 class OnError extends SongsListState {
   final String message;
 

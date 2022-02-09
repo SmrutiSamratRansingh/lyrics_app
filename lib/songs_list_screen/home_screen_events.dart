@@ -12,7 +12,4 @@ class GetSongDetailsEvent extends SongsListEvent {
 
 class NavigatetoTrackDetails extends SongsListEvent {}
 
-// class EatingHabitSelected extends CounterEvent {
-//   late final EatingHabit eatingHabit;
-//   EatingHabitSelected(this.eatingHabit);
-// }
+class NoInternetEvent extends SongsListEvent {}

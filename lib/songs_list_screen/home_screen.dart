@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyrics_app/song_details_screen/song_details.dart';
@@ -28,14 +31,48 @@ class SongsListScreen extends StatefulWidget {
 class _SongsListScreenState extends State<SongsListScreen> {
   bool firstLoad = true;
 
+  late bool hasInternet = true;
+  late Connectivity connectivity;
+
+  @override
+  initState() {
+    super.initState();
+    connectivity = Connectivity();
+    // var status = await connectivity.checkConnectivity();
+    connectivity.onConnectivityChanged.listen((event) {
+      if (event != ConnectivityResult.mobile &&
+          event != ConnectivityResult.wifi) {
+        BlocProvider.of<SongsListBloc>(context).add(NoInternetEvent());
+      } else if (event == ConnectivityResult.mobile) {
+        print('wifi off');
+        BlocProvider.of<SongsListBloc>(context).add(GetSongsListEvent());
+      } else if (event == ConnectivityResult.wifi) {
+        print('wifion');
+        BlocProvider.of<SongsListBloc>(context).add(GetSongsListEvent());
+      }
+    });
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Trending'),
+      ),
       body: BlocConsumer<SongsListBloc, SongsListState>(
         builder: (context, state) {
           if (firstLoad) {
             BlocProvider.of<SongsListBloc>(context).add(GetSongsListEvent());
             firstLoad = false;
+          }
+          if (state is NoInternetState) {
+            return Center(child: Text('No internet connection'));
           }
           if (state is OnLoading) {
             return Center(child: CircularProgressIndicator());
@@ -59,12 +96,16 @@ class _SongsListScreenState extends State<SongsListScreen> {
       ),
     );
   }
-}
 
-void navigateToDetails(BuildContext context, OnLoadedSongDetails state) {
-  Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => SongDetailsScreen(
-          track: state.trackDetails, lyricsData: state.lyrics)));
+  void navigateToDetails(BuildContext context, OnLoadedSongDetails state) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => SongDetailsScreen(
+              track: state.trackDetails, lyricsData: state.lyrics)),
+    );
+    firstLoad = true;
+  }
 }
 
 ListView songsListUI(OnLoadedSongsList state) {

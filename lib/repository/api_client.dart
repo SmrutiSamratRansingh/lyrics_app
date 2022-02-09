@@ -20,15 +20,15 @@ class ApiClient {
 
         return SongsData.fromJson(songJson);
       } else {
-        return SongsData.fromError("Error1");
+        return SongsData.fromError("Error please try again");
       }
     } catch (error) {
       if (error is DioError) {
         print(error.message);
-        return SongsData.fromError("Error2");
+        return SongsData.fromError("Error please try again");
       }
       print(error);
-      return SongsData.fromError("Error3");
+      return SongsData.fromError("Error please try again");
     }
   }
 
@@ -42,15 +42,15 @@ class ApiClient {
 
         return TrackDetailResponse.fromJson(trackJson);
       } else {
-        return TrackDetailResponse.fromError("Error1");
+        return TrackDetailResponse.fromError("Error please try again");
       }
     } catch (error) {
       if (error is DioError) {
         print(error.message);
-        return TrackDetailResponse.fromError("Error2");
+        return TrackDetailResponse.fromError("Error please try again");
       }
       print(error);
-      return TrackDetailResponse.fromError("Error3");
+      return TrackDetailResponse.fromError("Error please try again");
     }
   }
 
@@ -64,15 +64,15 @@ class ApiClient {
 
         return LyricsDetailResponse.fromJson(lyricsJson);
       } else {
-        return LyricsDetailResponse.fromError("Error1");
+        return LyricsDetailResponse.fromError("Error please try again");
       }
     } catch (error) {
       if (error is DioError) {
         print(error.message);
-        return LyricsDetailResponse.fromError("Error2");
+        return LyricsDetailResponse.fromError("Error please try again");
       }
       print(error);
-      return LyricsDetailResponse.fromError("Error3");
+      return LyricsDetailResponse.fromError("Error please try again");
     }
   }
 }
